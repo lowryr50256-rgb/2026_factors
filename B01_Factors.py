@@ -1,4 +1,7 @@
 # Generates headings (eg: ---- Heading ----) 1 usage
+from tkinter.ttk import tclobjs_to_py
+
+
 def statement_generator (statement, decoration):
     print(f"\n{decoration * 5} {statement} {decoration * 5}")
 
@@ -49,7 +52,45 @@ want_instructions = input("Press <enter> to read the instructions "
 if want_instructions == "":
     instructions()
 
-# Ask user for number to factor (between 1 and 200)
-to_factor = num_check("To factor: ")
-print("You chose ro factor", to_factor)
+while True:
 
+    comment = ""
+
+    # Ask user for number to be factorised
+    to_factor = num_check("\nEnter an integer (or xxx to quiet):")
+
+    if to_factor =="xxx":
+        break
+
+    # get factors for integers that are 2 or more
+    elif to_factor != 1:
+        all_factors = factor(to_factor)
+
+    # Set up comments for unity
+    else:
+        all_factors = ""
+        comment = "One is UNITY! It only has one factor. Itself :)"
+
+    # comment for squares / primes
+
+    # Prime numbers have only two factors
+    if len(all_factors) == 2:
+        comment = f"{to_factor} is a prime number"
+
+    # check if the list has an odd number of factors
+    elif len(all_factors) % 2 == 1:
+        comment = f"{to_factor} is a perfect square"
+
+    # Set up headings
+    if to_factor > 1:
+        heading = f"Factors of {to_factor}"
+    else:
+        heading = "One is special..."
+
+    # output factors and comments
+    print()
+    statement_generator(heading, "*")
+    print(all_factors)
+    print(comment)
+
+print("Thank you for using the factors calculator")
